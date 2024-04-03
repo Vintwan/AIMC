@@ -75,7 +75,7 @@ if __name__ == "__main__":
         results.append(res)
 
     print(results)
-    saveFile('wh.json',results)
+    saveFile('co_description.json',results)
     
 
     end_time = int(round(time.time() * 1000))
