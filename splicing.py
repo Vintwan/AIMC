@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import json
 import ollama
 from tqdm import tqdm 
