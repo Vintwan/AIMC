@@ -4,7 +4,7 @@ from tqdm import tqdm
 import time
 
 #调用模型优化
-def rec_image(model, images_path, prompt):
+def rec_image(model, origin_text, images_path, prompt):
     with tqdm(total=1) as pbar:
         response = ollama.chat(model= model, messages=[
         {"role": "system", "content": "You're a writer who's good at extracting information"},
@@ -14,10 +14,11 @@ def rec_image(model, images_path, prompt):
         },
     ])
     result = {
-        'images':images_path,
-        'result':response['message']['content']
+        'images': images_path,
+        'origin_text': origin_text,
+        'optimization': response['message']['content']
     }
-    print(result)
+    # print(result)
     return result 
 
 def saveFile(filename,filecontent):
@@ -30,8 +31,8 @@ if __name__ == "__main__":
     optimis = []
     with open('co_description.json', 'r', encoding='utf-8') as f:
         datas = json.load(f)
-    for data in datas():
-        optimi = rec_image("gemma:7b",data["result"], "Please summarize the information about the content of the picture in the sentence into a sentence of 15 words or less,including characters, plot, environment and historical background")
+    for data in datas:
+        optimi = rec_image("gemma:7b",data["result"], data["images"], "Please summarize the information about the content of the picture in the sentence into a sentence of 15 words or less,including characters, plot, environment and historical background")
         optimis.append(optimi)
     saveFile('opt_description.json', optimis)
 
