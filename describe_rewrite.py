@@ -5,12 +5,16 @@ import time
 
 #调用模型优化
 def rec_image(model, origin_text, images_path, prompt):
+    background = "You're a writer who's good at extracting information."
     with tqdm(total=1) as pbar:
         response = ollama.chat(model= model, messages=[
-        {"role": "system", "content": "You're a writer who's good at extracting information"},
+        {
+            "role": "system" ,
+            "content": background
+        },
         {
             'role': 'user',
-            'content': prompt
+            'content': prompt + origin_text
         },
     ])
     result = {
@@ -31,8 +35,8 @@ if __name__ == "__main__":
     optimis = []
     with open('co_description.json', 'r', encoding='utf-8') as f:
         datas = json.load(f)
-    for data in datas:
-        optimi = rec_image("gemma:7b",data["result"], data["images"], "Please summarize the information about the content of the picture in the sentence into a sentence of 15 words or less,including characters, plot, environment and historical background")
+    for data in tqdm(datas):
+        optimi = rec_image("gemma:7b",data["result"], data["images"], "Summarize the narrative elements of the sentence into a sentence of 15 words or less, including characters, plot, environment, and historical context. Get rid of the non-narrative stuff.")
         optimis.append(optimi)
     saveFile('opt_description.json', optimis)
 
