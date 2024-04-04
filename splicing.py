@@ -22,8 +22,7 @@ def cut(text):
 
 #调用模型优化
 
-def rec_solve(model, content, prompt):
-    background = "You're a writer who's good at extracting information."
+def rec_solve(model, content, prompt, background):
     response = ollama.chat(model= model, messages=[
     {
         "role": "system" ,
@@ -38,7 +37,15 @@ def rec_solve(model, content, prompt):
 
 
 if __name__ == "__main__":
-    with open('opt_description.json', 'r', encoding='utf-8') as f:
+
+    with open('data.json', 'r', encoding='utf-8') as f:
+        config = json.load(f)
+    model = config["img_describe"]["model"]
+    prompt = config["img_describe"]["prompt"]
+    background = config["img_describe"]["background"]
+    file = config["img_describe"]["file"]
+
+    with open(file, 'r', encoding='utf-8') as f:
         optds = json.load(f)
     content = [None] * len(optds)
     #桶排序
@@ -48,7 +55,7 @@ if __name__ == "__main__":
     for i in range(len(content)):
         text = text + f"({i})" +content[i]
     print(text)
-    result = rec_solve("llava:latest","These words are a shot script for a movie. Based on these contents, please speculate about the story of this movie.",text)
+    result = rec_solve(model=model, prompt=prompt, text=text, background=background)
     with open("splicing_text.txt", "w") as file:
         file.write(result)
     print("处理完成")

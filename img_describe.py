@@ -38,9 +38,9 @@ def get_img_file(path):
         return imagelist
 
 # 识别指定图片的内容，并返回
-def rec_image(model, images_path, prompt):
+def rec_image(model, images_path, prompt, background):
     response = ollama.chat(model= model, messages=[
-        {"role": "system", "content": "You are an assistant who perfectly describes images."},
+        {"role": "system", "content": background},
         {
             'role': 'user',
             'content': prompt,
@@ -62,18 +62,21 @@ def saveFile(filename,filecontent):
 
 if __name__ == "__main__":
     start_time = int(round(time.time() * 1000))
-
+    with open('data.json', 'r', encoding='utf-8') as f:
+      config = json.load(f)
+    
     folder_path = "sence_images_list/"
-    model = "llava:latest"
-    prompt = "Describe the picture in terms of someone doing something in a place"
+    model = config["img_describe"]["model"]
+    prompt = config["img_describe"]["prompt"]
+    background = config["img_describe"]["background"]
     results = []
-
+    print(model)
     # 读取指定目录下的所有图片，形成数组
     images = get_img_file(folder_path)
 
     for image in tqdm(images):
-        res = rec_image(model=model,images_path=image,prompt=prompt)
-        results.append(res)
+      res = rec_image(model=model,images_path=image,prompt=prompt, background=background)
+      results.append(res)
 
     print(results)
     saveFile('co_description.json',results)

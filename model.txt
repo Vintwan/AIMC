@@ -1,0 +1,3 @@
+gemma:7b
+llava:latest
+gemma:7b

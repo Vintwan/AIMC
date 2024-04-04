@@ -5,8 +5,7 @@ from tqdm import tqdm
 import time
 
 #调用模型优化
-def rec_image(model, origin_text, images_path, prompt):
-    background = "You're a writer who's good at extracting information."
+def rec_image(model, origin_text, images_path, prompt, background):
     response = ollama.chat(model= model, messages=[
     {
         "role": "system" ,
@@ -32,11 +31,17 @@ def saveFile(filename,filecontent):
 
 if __name__ == "__main__":
     start_time = int(round(time.time() * 1000))
+    with open('data.json', 'r', encoding='utf-8') as f:
+        config = json.load(f)
+    model = config["img_describe"]["model"]
+    prompt = config["img_describe"]["prompt"]
+    background = config["img_describe"]["background"]
+    file = config["img_describe"]["file"]
     optimis = []
-    with open('co_description.json', 'r', encoding='utf-8') as f:
+    with open(file, 'r', encoding='utf-8') as f:
         datas = json.load(f)
     for data in tqdm(datas):
-        optimi = rec_image("gemma:7b",data["result"], data["images"], "Summarize the narrative elements of the sentence into a sentence of 15 words or less, including characters, plot, environment, and historical context. Get rid of the non-narrative stuff.")
+        optimi = rec_image(model, data["result"], data["images"], prompt, background)
         optimis.append(optimi)
     saveFile('opt_description.json', optimis)
 
