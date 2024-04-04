@@ -6,7 +6,6 @@ import time
 #调用模型优化
 def rec_image(model, origin_text, images_path, prompt):
     background = "You're a writer who's good at extracting information."
-
     response = ollama.chat(model= model, messages=[
     {
         "role": "system" ,
