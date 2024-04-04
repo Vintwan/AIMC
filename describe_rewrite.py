@@ -26,7 +26,7 @@ def rec_image(model, origin_text, images_path, prompt):
 
 def saveFile(filename,filecontent):
     json_data = json.dumps(filecontent, ensure_ascii=False,indent=3)
-    with open(filename,"w") as f: #设置文件对象
+    with open(filename,"w",encoding="utf-8") as f: #设置文件对象
         f.write(json_data)
 
 if __name__ == "__main__":
