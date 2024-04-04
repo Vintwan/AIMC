@@ -6,16 +6,16 @@ import time
 #调用模型优化
 def rec_image(model, origin_text, images_path, prompt):
     background = "You're a writer who's good at extracting information."
-    with tqdm(total=1) as pbar:
-        response = ollama.chat(model= model, messages=[
-        {
-            "role": "system" ,
-            "content": background
-        },
-        {
-            'role': 'user',
-            'content': prompt + origin_text
-        },
+
+    response = ollama.chat(model= model, messages=[
+    {
+        "role": "system" ,
+        "content": background
+    },
+    {
+        'role': 'user',
+        'content': prompt + origin_text
+    },
     ])
     result = {
         'images': images_path,
