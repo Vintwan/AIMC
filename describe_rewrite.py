@@ -33,10 +33,10 @@ if __name__ == "__main__":
     start_time = int(round(time.time() * 1000))
     with open('data.json', 'r', encoding='utf-8') as f:
         config = json.load(f)
-    model = config["img_describe"]["model"]
-    prompt = config["img_describe"]["prompt"]
-    background = config["img_describe"]["background"]
-    file = config["img_describe"]["file"]
+    model = config["describe_rewrite"]["model"]
+    prompt = config["describe_rewrite"]["prompt"]
+    background = config["describe_rewrite"]["background"]
+    file = config["describe_rewrite"]["file"]
     optimis = []
     with open(file, 'r', encoding='utf-8') as f:
         datas = json.load(f)

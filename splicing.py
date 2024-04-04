@@ -40,10 +40,10 @@ if __name__ == "__main__":
 
     with open('data.json', 'r', encoding='utf-8') as f:
         config = json.load(f)
-    model = config["img_describe"]["model"]
-    prompt = config["img_describe"]["prompt"]
-    background = config["img_describe"]["background"]
-    file = config["img_describe"]["file"]
+    model = config["splicing"]["model"]
+    prompt = config["splicing"]["prompt"]
+    background = config["splicing"]["background"]
+    file = config["splicing"]["file"]
 
     with open(file, 'r', encoding='utf-8') as f:
         optds = json.load(f)
@@ -53,9 +53,8 @@ if __name__ == "__main__":
         content[find_number(optd["images"])] = cut(optd["optimization"])
     text = ""
     for i in range(len(content)):
-        text = text + f"({i})" +content[i]
-    print(text)
-    result = rec_solve(model=model, prompt=prompt, text=text, background=background)
+        text = text + f"({i})" + content[i]
+    result = rec_solve(model, text, prompt, background)
     with open("splicing_text.txt", "w") as file:
         file.write(result)
     print("处理完成")
