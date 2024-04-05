@@ -1,1 +1,19 @@
-{"img_describe": {"model": "llava:latest", "background": "You are an assistant who perfectly describes images.", "prompt": "Describe the picture in terms of someone doing something in a place"}, "describe_rewrite": {"model": "llava:latest", "file": "co_description.json", "background": "You're a writer who's good at extracting information.", "prompt": "Summarize the narrative elements of the sentence into a sentence of 15 words or less, including characters, plot, environment, and historical context. Get rid of the non-narrative stuff."}, "splicing": {"model": "llava:latest", "file": "opt_description.json", "background": "You're a writer who's good at extracting information.", "prompt": "These words are a shot script for a movie. Based on these contents, please speculate about the story of this movie."}}
+{
+    "img_describe": {
+        "model": "llava:latest",
+        "background": "You are an assistant who perfectly describes images.",
+        "prompt": "Describe the picture in terms of someone doing something in a place"
+    },
+    "describe_rewrite": {
+        "model": "llava:latest",
+        "file": "co_description.json",
+        "background": "You're a writer who's good at extracting information.",
+        "prompt": "Summarize the narrative elements of the sentence into a sentence of 15 words or less, including characters, plot, environment, and historical context. Get rid of the non-narrative stuff."
+    },
+    "splicing": {
+        "model": "llava:latest",
+        "file": "opt_description.json",
+        "background": "You're a writer who's good at extracting information.",
+        "prompt": "These words are a shot script for a movie. Based on these contents, please speculate about the story of this movie."
+    }
+}
