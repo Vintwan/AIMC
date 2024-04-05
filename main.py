@@ -3,6 +3,7 @@ import subprocess
 import tkinter as tk
 from tkinter import ttk
 import json
+import shutil
 
 def start_processing():
     data = {
@@ -27,7 +28,7 @@ def start_processing():
     
     with open('data.json', 'w') as f:
         json.dump(data, f)
-    
+    shutil.rmtree("sence_images_list")
     root.destroy()
     print("Cutting the Video\n")
     subprocess.run(["python", "sence_demo.py"])
