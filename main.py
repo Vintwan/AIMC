@@ -29,14 +29,17 @@ def start_processing():
         json.dump(data, f)
     
     root.destroy()
-
+    print("Cutting the Video\n")
     subprocess.run(["python", "sence_demo.py"])
+    print("Finished cutting. Describing the images\n")
     subprocess.run(["python", "img_describe.py"])
+    print("Finished describing. Rewriting\n")
     subprocess.run(["python", "describe_rewrite.py"])
+    print("Finished rewriting. Splicing. It takes just a few seconds.\n")
     subprocess.run(["python", "splicing.py"])
 
 root = tk.Tk()
-root.title("AIMC V0.2-040510")
+root.title("AIMC V0.2-04051408")
 root.geometry("450x750")
 root.configure(bg="#f0f0f0")
 

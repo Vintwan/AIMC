@@ -70,7 +70,6 @@ if __name__ == "__main__":
     prompt = config["img_describe"]["prompt"]
     background = config["img_describe"]["background"]
     results = []
-    print(model)
     # 读取指定目录下的所有图片，形成数组
     images = get_img_file(folder_path)
 
@@ -78,7 +77,6 @@ if __name__ == "__main__":
       res = rec_image(model=model,images_path=image,prompt=prompt, background=background)
       results.append(res)
 
-    print(results)
     saveFile('co_description.json',results)
     
 
