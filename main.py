@@ -23,7 +23,8 @@ def start_processing():
             "model": model_var_3.get(),
             "file": filename_var_3.get(),
             "background": background_var_3.get(),
-            "prompt": prompt_var_3.get()
+            "prompt": prompt_var_3.get(),
+            "ammount":generate_count_var.get()
         }
     }
     
@@ -44,7 +45,7 @@ def start_processing():
 
 root = tk.Tk()
 root.title("AIMC V0.3 开发者模式")
-root.geometry("450x680")
+root.geometry("450x800")
 root.configure(bg="#f0f0f0")
 
 # 创建上中下三个部分的框架
@@ -140,7 +141,15 @@ prompt_text_3 = tk.Text(bottom_frame, height=3, wrap=tk.WORD)
 prompt_text_3.insert("1.0", prompt_var_3.get())
 prompt_text_3.pack(fill="x")
 
-# 开始运行按钮
-tk.Button(root, text="开始运行", command=start_processing,  font=("Arial", 12)).pack(pady=10)
+# 开始运行按钮及生成条数文本框
+generate_count_frame = tk.Frame(root)
+generate_count_frame.pack(fill="x")
+
+tk.Label(generate_count_frame, text="生成条数", anchor="w").pack(side="left")
+generate_count_var = tk.IntVar(generate_count_frame)
+generate_count_var.set(10)  # 设置默认值为10
+tk.Entry(generate_count_frame, textvariable=generate_count_var, width=5).pack(side="left", padx=(0, 5))
+
+tk.Button(root, text="开始运行", command=start_processing, font=("Arial", 12)).pack(pady=10)
 
 root.mainloop()

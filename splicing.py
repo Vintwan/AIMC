@@ -44,7 +44,7 @@ if __name__ == "__main__":
     prompt = config["splicing"]["prompt"]
     background = config["splicing"]["background"]
     file = config["splicing"]["file"]
-
+    
     with open(file, 'r', encoding='utf-8') as f:
         optds = json.load(f)
     content = [None] * len(optds)
@@ -54,7 +54,8 @@ if __name__ == "__main__":
     text = ""
     for i in range(len(content)):
         text = text + f"({i})" + content[i]
-    result = rec_solve(model, text, prompt, background)
+    for i in range(config["splicing"]["ammount"]):
+        result = result + "Result" + str(i + 1) + ":\n" + rec_solve(model, text, prompt, background) + "\n\n"
     with open("splicing_text.txt", "w") as file:
         file.write(result)
     print("处理完成")
